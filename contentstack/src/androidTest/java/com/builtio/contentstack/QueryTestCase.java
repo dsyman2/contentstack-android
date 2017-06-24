@@ -43,8 +43,11 @@ public class QueryTestCase  extends ApplicationTestCase<TestActivity> {
         super.setUp();
 
         context = getContext();
+        Config config = new Config();
+        config.setHost("stag-new-api.contentstack.io");
+        stack = Contentstack.stack(context, DEFAULT_APPLICATION_KEY, DEFAULT_ACCESS_TOKEN, DEFAULT_ENV,config);
 
-        stack = Contentstack.stack(context, DEFAULT_APPLICATION_KEY, DEFAULT_ACCESS_TOKEN, DEFAULT_ENV);
+//        stack = Contentstack.stack(context, DEFAULT_APPLICATION_KEY, DEFAULT_ACCESS_TOKEN, DEFAULT_ENV);
         uidArray = new String[]{"blte88d9bec040e7c7c", "bltdf783472903c3e21"};
         containArray = new String[]{"Roti Maker", "kids dress"};
 
