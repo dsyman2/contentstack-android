@@ -44,7 +44,12 @@ public class ApplicationTest extends ApplicationTestCase<TestActivity> {
     protected void setUp() throws Exception {
         super.setUp();
 
-        stack = Contentstack.stack(context, DEFAULT_APPLICATION_KEY, DEFAULT_ACCESS_TOKEN, DEFAULT_ENV);
+        //stack = Contentstack.stack(context, DEFAULT_APPLICATION_KEY, DEFAULT_ACCESS_TOKEN, DEFAULT_ENV);
+
+        Config config = new Config();
+        config.setHost("cdn.contentstack.io");
+        stack = Contentstack.stack(context, DEFAULT_APPLICATION_KEY, DEFAULT_ACCESS_TOKEN, DEFAULT_ENV,config);
+
         uidArray = new String[]{"blte88d9bec040e7c7c", "bltdf783472903c3e21"};
 
         latch = new CountDownLatch(1);
