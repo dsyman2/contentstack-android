@@ -29,13 +29,17 @@ public class AssetTestCase extends ApplicationTestCase<TestActivity> {
         super.setUp();
 
         context = getContext();
+
+        //stack = Contentstack.stack(context, DEFAULT_APPLICATION_KEY, DEFAULT_ACCESS_TOKEN, DEFAULT_ENV);
         Config config = new Config();
-        config.setHost("stag-new-api.contentstack.io");
+        config.setHost("api.contentstack.io");
         stack = Contentstack.stack(context, DEFAULT_APPLICATION_KEY, DEFAULT_ACCESS_TOKEN, DEFAULT_ENV,config);
 
         //Counter lock for wait
         startSignal = new CountDownLatch(1);
     }
+
+
     public void test01_Asset_getAsset(){
 
         final Entry entry = stack.contentType("multifield").entry("blt1b1cb4f26c4b682e");
