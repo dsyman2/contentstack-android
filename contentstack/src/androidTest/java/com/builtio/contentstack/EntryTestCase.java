@@ -35,7 +35,10 @@ public class EntryTestCase extends ApplicationTestCase<TestActivity> {
 
         context = getContext();
 
-        stack = Contentstack.stack(context, DEFAULT_APPLICATION_KEY, DEFAULT_ACCESS_TOKEN, DEFAULT_ENV);
+        Config config = new Config();
+        config.setHost("stag-new-api.contentstack.io");
+        stack = Contentstack.stack(context, DEFAULT_APPLICATION_KEY, DEFAULT_ACCESS_TOKEN, DEFAULT_ENV,config);
+
 
         uidArray = new String[]{"blte88d9bec040e7c7c", "bltdf783472903c3e21"};
 
