@@ -32,7 +32,7 @@ public class AssetTestCase extends ApplicationTestCase<TestActivity> {
 
         //stack = Contentstack.stack(context, DEFAULT_APPLICATION_KEY, DEFAULT_ACCESS_TOKEN, DEFAULT_ENV);
         Config config = new Config();
-        config.setHost("api.contentstack.io");
+        config.setHost("cdn.contentstack.io");
         stack = Contentstack.stack(context, DEFAULT_APPLICATION_KEY, DEFAULT_ACCESS_TOKEN, DEFAULT_ENV,config);
 
         //Counter lock for wait

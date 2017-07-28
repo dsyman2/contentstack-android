@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * Created by chinmay on 22/8/16.
+ * Created by @builtio on.
  */
 public class QueryTestCase  extends ApplicationTestCase<TestActivity> {
 
@@ -39,7 +39,10 @@ public class QueryTestCase  extends ApplicationTestCase<TestActivity> {
         super(TestActivity.class);
     }
 
+
+
     protected void setUp() throws Exception {
+
         super.setUp();
 
         context = getContext();
@@ -47,7 +50,7 @@ public class QueryTestCase  extends ApplicationTestCase<TestActivity> {
         //stack = Contentstack.stack(context, DEFAULT_APPLICATION_KEY, DEFAULT_ACCESS_TOKEN, DEFAULT_ENV);
 
         Config config = new Config();
-        config.setHost("api.contentstack.io");
+        config.setHost("cdn.contentstack.io");
         stack = Contentstack.stack(context, DEFAULT_APPLICATION_KEY, DEFAULT_ACCESS_TOKEN, DEFAULT_ENV,config);
 
 
@@ -1133,11 +1136,13 @@ public class QueryTestCase  extends ApplicationTestCase<TestActivity> {
         Query query = ct.query();
         //query.includeCount();
         query.where("in_stock", true);
+        query.where("title", "halloween dress");
         final Object result[] = new Object[2];
 
         query.findOne(new SingleQueryResultCallback() {
             @Override
             public void onCompletion(ResponseType responseType, Entry entry, Error error) {
+
                 if (error == null) {
                     result[0] = entry;
                     latch.countDown();
@@ -1149,8 +1154,11 @@ public class QueryTestCase  extends ApplicationTestCase<TestActivity> {
         });
         latch.await();
         Entry entry = (Entry) result[0];
+        System.out.println("entry==?"+ entry);
         assertEquals(entry.getUid(), (String)"bltbb44e49e6148eb30"/*"blte88d9bec040e7c7c"*/);
     }
+
+
 
     //Char count 8209 will passed...
     public void test_38_complexFind() throws InterruptedException, ParseException {
