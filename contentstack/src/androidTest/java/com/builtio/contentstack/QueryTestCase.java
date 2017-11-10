@@ -1189,4 +1189,96 @@ public class QueryTestCase  extends ApplicationTestCase<TestActivity> {
         latch.await();
 
     }
+
+
+
+
+
+    public void test_39_includeContentType() throws InterruptedException, ParseException {
+
+        ContentType ct = stack.contentType("product");
+        Query query = ct.query();
+        query.includeContentType();
+        final Object result[] = new Object[]{new Object()};
+
+        query.find(new QueryResultsCallBack() {
+            @Override
+            public void onCompletion(ResponseType responseType, QueryResult queryresult, Error error) {
+
+                if (error == null) {
+                    result[0] = queryresult.getContentType();
+                    latch.countDown();
+                } else {
+                    result[0] = error.getErrorCode();
+                    latch.countDown();
+                }
+            }
+        });
+        latch.await();
+        JSONObject contentType = null;
+        contentType = (JSONObject) result[0];
+        assertTrue(contentType !=  null);
+    }
+
+
+
+
+
+    public void test_40_includeSchemaAndContentType() throws InterruptedException, ParseException {
+
+        ContentType ct = stack.contentType("product");
+        Query query = ct.query();
+        query.includeSchema();
+        query.includeContentType();
+        final Object result[] = new Object[]{new Object()};
+
+        query.find(new QueryResultsCallBack() {
+            @Override
+            public void onCompletion(ResponseType responseType, QueryResult queryresult, Error error) {
+
+                if (error == null) {
+                    result[0] = queryresult.getContentType();
+                    latch.countDown();
+                } else {
+                    result[0] = error.getErrorCode();
+                    latch.countDown();
+                }
+            }
+        });
+        latch.await();
+        JSONObject contentType = null;
+        contentType = (JSONObject) result[0];
+        assertTrue(contentType !=  null);
+    }
+
+
+
+
+    public void test_40_includeContentTypeAndSchema() throws InterruptedException, ParseException {
+
+        ContentType ct = stack.contentType("product");
+        Query query = ct.query();
+        query.includeContentType();
+        query.includeSchema();
+        final Object result[] = new Object[]{new Object()};
+
+        query.find(new QueryResultsCallBack() {
+            @Override
+            public void onCompletion(ResponseType responseType, QueryResult queryresult, Error error) {
+
+                if (error == null) {
+                    result[0] = queryresult.getContentType();
+                    latch.countDown();
+                } else {
+                    result[0] = error.getErrorCode();
+                    latch.countDown();
+                }
+            }
+        });
+        latch.await();
+        JSONObject contentType = null;
+        contentType = (JSONObject) result[0];
+        assertTrue(contentType !=  null);
+    }
+
 }
