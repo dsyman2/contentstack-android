@@ -383,4 +383,47 @@ public class AssetTestCase extends ApplicationTestCase<TestActivity> {
         }
     }
 
+    /************************************************************/
+
+    public void test11_Asset_addParams(){
+        final Object result[] = new Object[2];
+        final Asset asset = stack.asset("blt5312f71416d6e2c8");
+        asset.addParam("key", "some_value");
+        asset.fetch(new FetchResultCallback() {
+            @Override
+            public void onCompletion(ResponseType responseType, Error error) {
+
+                if(error == null){
+
+                    Log.w(TAG, "----------Test--Asset-03--Success---------" + asset.toJSON());
+                    Log.w(TAG, "----------Test--Asset-03--Success---------" + asset.getFileType());
+                    Log.w(TAG, "----------Test--Asset-03--Success---------" + asset.getCreatedBy());
+                    Log.w(TAG, "----------Test--Asset-03--Success---------" + asset.getUpdatedBy());
+                    Log.w(TAG, "----------Test--Asset-03--Success---------" + asset.getFileName());
+                    Log.w(TAG, "----------Test--Asset-03--Success---------" + asset.getFileSize());
+                    Log.w(TAG, "----------Test--Asset-03--Success---------" + asset.getAssetUid());
+                    Log.w(TAG, "----------Test--Asset-03--Success---------" + asset.getUrl());
+                    Log.w(TAG, "----------Test--Asset-03--Success---------" + asset.getCreateAt().getTime());
+                    Log.w(TAG, "----------Test--Asset-03--Success---------" + asset.getUpdateAt().getTime());
+                    result[0] = asset;
+                    startSignal.countDown();
+                }else {
+                    result[0] = error;
+                    Log.w(TAG, "----------Test--Asset--03--Error---------" + error.getErrorMessage());
+                    Log.w(TAG, "----------Test--Asset--03--Error---------" + error.getErrorCode());
+                    Log.w(TAG, "----------Test--Asset--03--Error---------" + error.getErrors());
+                    startSignal.countDown();
+                }
+
+            }
+        });
+
+        try{
+            startSignal.await();
+            assertEquals(true, result[0] instanceof Asset);
+        }catch(Exception e){
+            System.out.println("---------------||"+e.toString());
+        }
+    }
+
 }

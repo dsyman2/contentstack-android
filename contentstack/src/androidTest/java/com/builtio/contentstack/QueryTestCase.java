@@ -1281,4 +1281,31 @@ public class QueryTestCase  extends ApplicationTestCase<TestActivity> {
         assertTrue(contentType !=  null);
     }
 
+    /************************************************************/
+
+
+    public void test_39_addParams() throws InterruptedException, ParseException {
+
+        ContentType contentType = stack.contentType("product");
+        Query query = contentType.query();
+        final Object result[] = new Object[] { new Object() };
+        query.addParam("key","sample_value");
+
+        query.find(new QueryResultsCallBack() {
+            @Override
+            public void onCompletion(ResponseType responseType, QueryResult queryresult, Error error) {
+
+                if (error == null) {
+                    result[0] = queryresult.getResultObjects();
+                    System.out.println("responseType = [" + responseType + "], queryresult = [" + queryresult.getResultObjects().size() + "]");
+                    latch.countDown();
+                } else {
+                    latch.countDown();
+                }
+            }
+        });
+        latch.await();
+
+    }
+
 }
